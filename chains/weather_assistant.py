@@ -9,8 +9,8 @@ from llms.ollama_llms import OllamaWrapper
 
 
 class WeatherAssistantChain(Chain):
-    llm: BaseLanguageModel = PromptTemplate.from_template("你是一个天气助手")
-    prompt: BasePromptTemplate
+    llm: BaseLanguageModel
+    prompt: BasePromptTemplate = PromptTemplate.from_template("你是一个天气助手")
     output_key: str = 'text'
 
     @property
@@ -30,5 +30,4 @@ class WeatherAssistantChain(Chain):
 class OllamaWeatherAssistantChain:
     def __init__(self, *args, **kwargs):
         self.llm = OllamaWrapper(*args, **kwargs)
-        self.chain = WeatherAssistantChain(llm=self.llm)
-
+        self.chain = WeatherAssistantChain(llm=self.llm.llm)
