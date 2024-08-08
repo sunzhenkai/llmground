@@ -2,11 +2,16 @@
 llm playground.
 
 # Dependencies
+## Library
 ```shell
 pip install langchain langchain-community langchain-core langchain-cli 
 pip install "langserve[all]"
 ```
 
+## Ollama Server
+```
+127.0.0.1:11434
+```
 # Adding packages
 
 ```bash
