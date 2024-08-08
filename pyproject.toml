@@ -13,10 +13,13 @@ python = "^3.11"
 uvicorn = "^0.23.2"
 langserve = {extras = ["server"], version = ">=0.0.30"}
 pydantic = "<2"
+langchain  = "^0.2.12"
+langchain-community = "^0.2.11"
+langchain-core = "^0.2.29"
 
 
 [tool.poetry.group.dev.dependencies]
-langchain-cli = ">=0.0.15"
+langchain-cli = ">=0.0.28"
 
 [build-system]
 requires = ["poetry-core"]
