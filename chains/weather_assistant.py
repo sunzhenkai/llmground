@@ -6,12 +6,22 @@ from langchain_core.callbacks import CallbackManagerForChainRun
 from langchain_core.language_models import BaseLanguageModel
 from langchain_core.prompts import BasePromptTemplate, PromptTemplate
 from llms.ollama_llms import OllamaWrapper
+from pydantic import field_validator
+from langserve.pydantic_v1 import BaseModel
 
 
 class WeatherAssistantChain(Chain):
     llm: BaseLanguageModel
-    prompt: BasePromptTemplate = PromptTemplate.from_template("你是一个天气助手")
+    prompt: BasePromptTemplate = PromptTemplate.from_template("你是一个天气助手, 你坐在的地点是 {location}.")
     output_key: str = 'text'
+
+    class InputSchema(BaseModel):
+        location: str
+
+        @classmethod
+        @field_validator('location')
+        def validate_location(cls, v):
+            return v
 
     @property
     def input_keys(self) -> List[str]:

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from langserve import add_routes
-from chains.weather_assistant import OllamaWeatherAssistantChain
+from chains.weather_assistant import OllamaWeatherAssistantChain, WeatherAssistantChain
 
 app = FastAPI(title='llm playground', version='0.0.1')
 
@@ -13,7 +13,7 @@ async def redirect_root_to_docs():
 
 # weather assistant
 ollama_weather_chain = OllamaWeatherAssistantChain()
-add_routes(app, ollama_weather_chain.chain, path="/weather")
+add_routes(app, ollama_weather_chain.chain, path="/weather", input_type=WeatherAssistantChain.InputSchema)
 
 if __name__ == "__main__":
     import uvicorn
