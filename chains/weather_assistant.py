@@ -12,7 +12,10 @@ from langserve.pydantic_v1 import BaseModel
 
 class WeatherAssistantChain(Chain):
     llm: BaseLanguageModel
-    prompt: BasePromptTemplate = PromptTemplate.from_template("你是一个天气助手, 你坐在的地点是 {location}.")
+    prompt: BasePromptTemplate = PromptTemplate.from_template("""
+    你是一个天气助手，你所在的地点是 {location}。你需要从工具获取所在位置的实时天气。
+    并以天气助手的口吻，简介扼要地给出用户需要关注的天气信息。
+    """)
     output_key: str = 'text'
 
     class InputSchema(BaseModel):
