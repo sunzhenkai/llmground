@@ -54,5 +54,5 @@ docker build . -f docker/Dockerfile -t llmground
 ```
 ## Running the Image Locally
 ```shell
-docker run -p 9010:9010 llmground 
+docker run --rm -p 9015:9015 llmground 
 ```
