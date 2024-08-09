@@ -2,7 +2,7 @@
 from langchain_ollama.chat_models import ChatOllama
 import os
 
-OLLAMA_DEFAULT_MODEL = "llama3.1:8b"
+OLLAMA_DEFAULT_MODEL = os.getenv('OLLAMA_DEFAULT_MODEL', "llama3.1:8b")
 # OLLAMA_DEFAULT_MODEL="qwen2:7b"
 OLLAMA_SERVER_URL = os.getenv('OLLAMA_SERVER_URL', "http://127.0.0.1:11434")
 

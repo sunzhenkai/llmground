@@ -2,12 +2,12 @@
 from typing import Dict, Any, Optional, List
 
 from langchain.chains.base import Chain
-from langchain_core.callbacks import CallbackManagerForChainRun
+from langchain_core.callbacks import CallbackManagerForChainRun, AsyncCallbackManagerForChainRun
 from langchain_core.language_models import BaseLanguageModel
-from langchain_core.prompts import BasePromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import BasePromptTemplate, ChatPromptTemplate, MessagesPlaceholder
 
 from llms.ollama_llms import OllamaWrapper
-from langserve.pydantic_v1 import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class WeatherAssistantChain(Chain):
@@ -16,7 +16,7 @@ class WeatherAssistantChain(Chain):
         [
             ("system", """你是一个贴心的中文天气助手， 简明扼要地提醒用户需要关注的天气信息"""),
             ("human", "{input}"),
-            ("placeholder", "{agent_scratchpad}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad")
         ]
     )
     output_key: str = 'text'
@@ -36,6 +36,13 @@ class WeatherAssistantChain(Chain):
         prompt_value = self.prompt.format_prompt(**inputs)
         response = self.llm.generate_prompt([prompt_value], callbacks=run_manager.get_child() if run_manager else None)
         return {self.output_key: response.generations[0][0].text}
+
+    def _acall(
+            self,
+            inputs: Dict[str, Any],
+            run_manager: Optional[AsyncCallbackManagerForChainRun] = None,
+    ) -> Dict[str, Any]:
+        raise NotImplementedError()
 
 
 class OllamaWeatherAssistantChain:
