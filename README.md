@@ -4,7 +4,7 @@ llm playground.
 # Dependencies
 ## Library
 ```shell
-pip install langchain langchain-community langchain-core langchain-cli 
+pip install langchain langchain-community langchain-core langchain-cli langchain-ollama
 pip install "langserve[all]"
 ```
 

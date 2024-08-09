@@ -7,7 +7,8 @@ RUN pip install langchain==0.2.12 \
   langchain-core==0.2.29  \
   uvicorn==0.23.2 \
   pydantic==2.8.2 \
-  langserve==0.2.2
+  langserve==0.2.2 \
+  langchain-ollama==0.1.1
 #RUN pip install poetry==1.8.3
 #RUN poetry config virtualenvs.create false
 WORKDIR /data/llmground
