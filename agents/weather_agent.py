@@ -21,7 +21,7 @@ class WeatherAssistantAgent(Runnable):
         # self.chain.llm.llm.bind_tools(self.tools)
         # self.agent = (self.chain.chain.prompt | self.chain.llm.llm | AgentOutputParser())
         self.agent = create_tools_agent(self.chain.llm.llm, self.tools, prompt=self.chain.chain.prompt)
-        self.executor = AgentExecutor(agent=self.agent, tools=self.tools)
+        # self.executor = AgentExecutor(agent=self.agent, tools=self.tools)
 
     def _create_executor(self, config: Optional[RunnableConfig] = None) -> AgentExecutor:
         config = ensure_config(config)
