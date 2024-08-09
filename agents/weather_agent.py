@@ -7,7 +7,6 @@ from typing import Any, Optional, List, AsyncIterator, cast, Dict
 from langchain.agents import AgentExecutor
 from langchain_core.runnables import Runnable, RunnableConfig, ensure_config
 from langchain_core.runnables.utils import Input, Output, ConfigurableFieldSpec
-from torch.distributed.elastic.timer import configure
 
 from agents.agent_tools import create_tools_agent
 from agents.tools.weather_tools import get_weather_info
