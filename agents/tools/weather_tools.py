@@ -22,4 +22,4 @@ def get_weather_info(location: str) -> str:
         return f"地点: {j['location']['name']}, 现在天气: {j['now']['text']}, 气温: {j['now']['temperature']} 摄氏度"
     except  Exception as e:
         print(e)
-    return '获取天气信息失败'
+    return f'获取 [{location}] 天气信息失败'
