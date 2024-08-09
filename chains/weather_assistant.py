@@ -15,8 +15,7 @@ class WeatherAssistantChain(Chain):
     llm: BaseLanguageModel
     prompt: BasePromptTemplate = ChatPromptTemplate.from_messages(
         [
-            ("system", """你是一个中文天气助手，你需要从工具获取用户指定位置的实时天气。
-            并以天气助手的口吻，简介扼要地给出用户需要关注的天气信息。"""),
+            ("system", """你是一个贴心的中文天气助手， 简明扼要地提醒用户需要关注的天气信息"""),
             ("human", "{input}"),
             ("placeholder", "{agent_scratchpad}"),
         ]

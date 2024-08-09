@@ -9,3 +9,6 @@ class TestWeatherAssistantAgent(TestCase):
         agent = WeatherAssistantAgent()
         message = agent.agent.invoke({"input": "我现在位于北京"})
         print(json.dumps(message, indent=4, ensure_ascii=False))
+
+        message = agent.agent.invoke({"input": "我将要前往上海出差"})
+        print(json.dumps(message, indent=4, ensure_ascii=False))
