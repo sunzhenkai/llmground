@@ -2,29 +2,27 @@
 from typing import Dict, Any, Optional, List
 
 from langchain.chains.base import Chain
-from langchain_core.callbacks import CallbackManagerForChainRun
+from langchain_core.callbacks import CallbackManagerForChainRun, AsyncCallbackManagerForChainRun
 from langchain_core.language_models import BaseLanguageModel
-from langchain_core.prompts import BasePromptTemplate, PromptTemplate
+from langchain_core.prompts import BasePromptTemplate, ChatPromptTemplate, MessagesPlaceholder
+
 from llms.ollama_llms import OllamaWrapper
-from pydantic import field_validator
-from langserve.pydantic_v1 import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class WeatherAssistantChain(Chain):
     llm: BaseLanguageModel
-    prompt: BasePromptTemplate = PromptTemplate.from_template("""
-    你是一个天气助手，你所在的地点是 {location}。你需要从工具获取所在位置的实时天气。
-    并以天气助手的口吻，简介扼要地给出用户需要关注的天气信息。
-    """)
+    prompt: BasePromptTemplate = ChatPromptTemplate.from_messages(
+        [
+            ("system", """你是一个贴心的中文天气助手， 简明扼要地提醒用户需要关注的天气信息"""),
+            ("human", "{input}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad")
+        ]
+    )
     output_key: str = 'text'
 
     class InputSchema(BaseModel):
-        location: str
-
-        @classmethod
-        @field_validator('location')
-        def validate_location(cls, v):
-            return v
+        input: str
 
     @property
     def input_keys(self) -> List[str]:
@@ -38,6 +36,13 @@ class WeatherAssistantChain(Chain):
         prompt_value = self.prompt.format_prompt(**inputs)
         response = self.llm.generate_prompt([prompt_value], callbacks=run_manager.get_child() if run_manager else None)
         return {self.output_key: response.generations[0][0].text}
+
+    def _acall(
+            self,
+            inputs: Dict[str, Any],
+            run_manager: Optional[AsyncCallbackManagerForChainRun] = None,
+    ) -> Dict[str, Any]:
+        raise NotImplementedError()
 
 
 class OllamaWeatherAssistantChain:
