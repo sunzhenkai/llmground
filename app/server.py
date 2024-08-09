@@ -14,7 +14,7 @@ async def redirect_root_to_docs():
 
 # weather assistant
 weather_agent = WeatherAssistantAgent()
-add_routes(app, weather_agent.agent, path="/weather", input_type=WeatherAssistantChain.InputSchema)
+add_routes(app, weather_agent.executor, path="/weather", input_type=WeatherAssistantChain.InputSchema)
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,9 +1,11 @@
 #!/bin/python3
 import json
+from typing import Any
 
 from langchain.agents import tool
 import os
 import requests
+from langchain_core.tools import BaseTool
 
 # 心知天气 API 密钥
 SENIVERSE_API_SECRET_KEY = os.getenv('SENIVERSE_API_SECRET_KEY')

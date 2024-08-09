@@ -4,10 +4,9 @@ from typing import Dict, Any, Optional, List
 from langchain.chains.base import Chain
 from langchain_core.callbacks import CallbackManagerForChainRun
 from langchain_core.language_models import BaseLanguageModel
-from langchain_core.prompts import BasePromptTemplate, PromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import BasePromptTemplate, ChatPromptTemplate
 
 from llms.ollama_llms import OllamaWrapper
-from pydantic import field_validator
 from langserve.pydantic_v1 import BaseModel
 
 
